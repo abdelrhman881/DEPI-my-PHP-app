@@ -1,0 +1,14 @@
+services:
+
+  mysql-db:
+    image: mysql
+    environment:  
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: abdo
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+
+  php_app:
+    build: .
+    ports:
+      - "8080:80"
