@@ -13,6 +13,9 @@ node {
     }
 
     stage('Deploy') {
+        input {
+            message 'Deploy? '
+        }
         echo "Deploying"
         sh "docker run -d -p 9090:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
     }
