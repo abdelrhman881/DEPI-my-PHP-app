@@ -22,7 +22,6 @@ pipeline {
 
         stage('Deploy') {
             parallel {
-                // One or more stages need to be included within the parallel block.
                 stage('Deploy using Docker') {
                     when {
                         expression { params.docker_deploy == true || params.docker_and_k8s_deploy == true }
