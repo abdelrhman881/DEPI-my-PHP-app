@@ -22,7 +22,7 @@ pipeline {
 
         stage('Deploy using Docker') {
             when {
-                experession { params.docker_deploy == true || params.docker_and_k8s_deploy == true }
+                expression { params.docker_deploy == true || params.docker_and_k8s_deploy == true }
             }
 
             input {
@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deploy using K8s') {
             when {
-                experession { params.k8s_deploy == true || params.docker_and_k8s_deploy == true }
+                expression { params.k8s_deploy == true || params.docker_and_k8s_deploy == true }
             }
 
             input {
