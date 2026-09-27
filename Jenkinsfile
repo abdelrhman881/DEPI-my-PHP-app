@@ -20,32 +20,37 @@ pipeline {
             }
         }
 
-        stage('Deploy using Docker') {
-            when {
-                expression { params.docker_deploy == true || params.docker_and_k8s_deploy == true }
-            }
+        stage('Deploy') {
+            parallel {
+                // One or more stages need to be included within the parallel block.
+                stage('Deploy using Docker') {
+                    when {
+                        expression { params.docker_deploy == true || params.docker_and_k8s_deploy == true }
+                    }
 
-            input {
-                message 'Deploy?'
-            }
-            steps {
-                echo "Deploying"
-                sh "docker run -d -p 9090:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
-            }
-        }
+                    input {
+                        message 'Deploy?'
+                    }
+                    steps {
+                        echo "Deploying"
+                        sh "docker run -d -p 9090:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
+                    }
+                }
 
-        stage('Deploy using K8s') {
-            when {
-                expression { params.k8s_deploy == true || params.docker_and_k8s_deploy == true }
-            }
+                stage('Deploy using K8s') {
+                    when {
+                        expression { params.k8s_deploy == true || params.docker_and_k8s_deploy == true }
+                    }
 
-            input {
-                message 'Deploy?'
-            }
-            steps {
-                echo "Deploying"
-                sh "sed -i 's/placeholder/${BUILD_NUMBER}/' php_deploy_jenkins.yml"
-                sh "kubectl apply -f php_deploy_jenkins.yml"
+                    input {
+                        message 'Deploy?'
+                    }
+                    steps {
+                        echo "Deploying"
+                        sh "sed -i 's/placeholder/${BUILD_NUMBER}/' php_deploy_jenkins.yml"
+                        sh "kubectl apply -f php_deploy_jenkins.yml"
+                    }
+                }
             }
         }
     }
