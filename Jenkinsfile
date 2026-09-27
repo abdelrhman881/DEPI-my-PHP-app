@@ -14,6 +14,6 @@ node {
 
     stage('Deploy') {
         echo "Deploying"
-        sh "docker run -d -p 80:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
+        sh "docker run -d -p 9090:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
     }
 }
