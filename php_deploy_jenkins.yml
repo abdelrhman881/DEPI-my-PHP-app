@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: php_deploy_jenkins
-  name: php_deploy_jenkins
+    app: php-deploy-jenkins
+  name: php-deploy-jenkins
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php_deploy_jenkins
+      app: php-deploy-jenkins
   strategy: {}
   template:
     metadata:
       labels:
-        app: php_deploy_jenkins
+        app: php-deploy-jenkins
     spec:
       containers:
       - image: 'abdelrhman11/my_php_app:placeholder'
