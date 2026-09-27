@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Source') {
-            steps {
-                git branch:'main',credentialsId:'github_cred',url:'https://github.com/abdelrhman881/DEPI-my-PHP-app.git'
-            }
-        }
+        // stage('Source') {
+        //     steps {
+        //         git branch:'main',credentialsId:'github_cred',url:'https://github.com/abdelrhman881/DEPI-my-PHP-app.git'
+        //     }
+        // }
 
         stage('Build & Push') {
             steps {
