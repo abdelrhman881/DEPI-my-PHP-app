@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    // parameters {
+    // booleanParam defaultValue: false description: 'deploy using docker', name: 'docker_deploy'
+    // booleanParam defaultValue: false description: 'deploy using k8s', name: 'k8s_deploy'
+    // booleanParam defaultValue: false description: 'deploy using both docker and k8s', name: 'docker_and_k8s_deploy'
+    // }
 
     stages {
         stage('Build & Push') {
@@ -15,13 +20,24 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy using Docker') {
             input {
                 message 'Deploy?'
             }
             steps {
                 echo "Deploying"
                 sh "docker run -d -p 9090:80 abdelrhman11/my_php_app:${BUILD_NUMBER}"
+            }
+        }
+
+        stage('Deploy using K8s') {
+            input {
+                message 'Deploy?'
+            }
+            steps {
+                echo "Deploying"
+                sh "sed -i 's/placeholder/${BUILD_NUMBER}/' php_deploy_jenkins.yml"
+                sh "kubectl apply -f php_deploy_jenkins.yml"
             }
         }
     }

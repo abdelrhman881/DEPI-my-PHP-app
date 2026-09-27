@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: php_deploy_jenkins
+  name: php_deploy_jenkins
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php_deploy_jenkins
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: php_deploy_jenkins
+    spec:
+      containers:
+      - image: 'abdelrhman11/my_php_app:placeholder'
+        name: my-php-app-srvbj
+        resources: {}
+status: {}
